@@ -5,7 +5,7 @@
             background: url("../images/moodlogin.jpg") no-repeat center center fixed;
             background-size: cover;
             color: #262b57; 
-            cursor: url('../images/cusrsor.png') 4 4, default;
+            cursor: url('../images/cusrsor_blue.png') 4 4, default;
         }
 
         .greeting-container {

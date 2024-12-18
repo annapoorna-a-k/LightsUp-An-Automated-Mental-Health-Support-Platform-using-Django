@@ -21,22 +21,6 @@ logger = logging.getLogger(__name__)
 def home(request):
     return render(request, 'home.html')
 
-# def signup_view(request):
-#     """Handle user signup."""
-#     if request.method
-#     if request.method == 'POST':
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             messages.success(request, "Account created successfully!")
-#             return redirect('goals')  # Redirect to goals page
-#         else:
-#             messages.error(request, "Please correct the errors below.")
-#     else:
-#         form = SignUpForm()
-#     return render(request, 'signup.html', {'form': form})
-
 def signup_view(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -45,24 +29,25 @@ def signup_view(request):
         confirm_password = request.POST['password2']
 
         if password == confirm_password:
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(email=email).exists(): #same email address checking
                 messages.info(request, 'Email already exists')
                 return redirect('signup')
-            elif User.objects.filter(username=username).exists():
+            elif User.objects.filter(username=username).exists(): #same username exists
                 messages.info(request, 'Username already exists')
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
-                user.save()
+                user.save() #saves this to the database
+
                 user_login = authenticate(username=username, password=password)
                 login(request, user_login)
+                
                 return redirect('goals')
         else:
             messages.info(request, 'Password doesnt match')
             return redirect('signup')
 
     else:
-
         return render(request, 'signup.html')
 
 
@@ -105,6 +90,32 @@ def goals(request):
 
 
 @login_required
+def add_goal(request):
+    if request.method == 'POST':
+        goal_name = request.POST.get('custom-goal')
+        if goal_name:
+            Goal.objects.create(user=request.user, name=goal_name)  
+            #messages.success(request, 'Goal added successfully!')
+        else:
+            print(Goal)
+            #messages.error(request, 'Please enter a goal name.')
+    return redirect('dashboard')  
+
+@login_required
+def remove_goals(request):
+    if request.method == 'POST':
+        selected_goals = request.POST.getlist('selected_goals') 
+        if selected_goals:
+            Goal.objects.filter(id__in=selected_goals, user=request.user).delete()
+            #messages.success(request, 'Selected goals removed successfully!')
+        else:
+            print(Goal)
+            #messages.error(request, 'No goals were selected for removal.')
+    return redirect('dashboard')
+
+
+
+@login_required
 def moodlogin(request):
     if request.method == 'POST':
         mood = request.POST.get('emotion')  
@@ -113,9 +124,7 @@ def moodlogin(request):
 
         Mood.objects.create(user=request.user, emotion=mood, reason=reason, notes=notes)
         return redirect('dashboard')
-
-    emotions = ["happy", "sad", "neutral", "angry", "excited", "anxious"]
-    return render(request, 'moodlogin.html', {'emotions': emotions})
+    return render(request, 'moodlogin.html')
 
 
 @login_required
@@ -125,7 +134,7 @@ def dashboard(request):
     print(f"Latest Mood: {latest_mood}")  
     
     if latest_mood:
-        affirmations = Affirmation.objects.filter(mood__emotion=latest_mood.emotion)
+        affirmations = Affirmation.objects.filter(mood__emotion=latest_mood.emotion).order_by('?')
         print(f"Affirmation Count for mood '{latest_mood.emotion}': {affirmations.count()}")  
 
         random_affirmation = None
@@ -139,11 +148,13 @@ def dashboard(request):
         print("No mood logged for the user.")
         random_affirmation = None
 
-    prompts = JournalingPrompt.objects.filter(mood__emotion=latest_mood.emotion)[:2]
-    recommendations = Recommendation.objects.filter(mood__emotion=latest_mood.emotion)[:3]
+
+    prompts = JournalingPrompt.objects.filter(mood__emotion=latest_mood.emotion).order_by('?')[:2]
+    recommendations = Recommendation.objects.filter(mood__emotion=latest_mood.emotion).order_by('?')[:3]
     challenges = DailyChallenge.objects.filter(user=user, completed=False)
     goals = Goal.objects.filter(user=user)
-    context = {
+
+    context = { # all the data that will be passed to the template
         'latest_mood': latest_mood,
         'affirmations': random_affirmation,  
         'prompts': prompts,
@@ -151,6 +162,7 @@ def dashboard(request):
         'challenges': challenges,
         'goals': goals,
     }
+    
     return render(request, 'dashboard.html', context)
 
 
@@ -161,32 +173,9 @@ def add_challenge(request):
         task = request.POST.get('custom-challenge')
         if task:
             DailyChallenge.objects.create(user=request.user, task=task)
-            messages.success(request, 'Challenge added successfully!')
+            #messages.success(request, 'Challenge added successfully!')
         else:
             messages.error(request, 'Please enter a challenge task.')
-    return redirect('dashboard')
-
-
-
-def add_goal(request):
-    if request.method == 'POST':
-        goal_name = request.POST.get('custom-goal')
-        if goal_name:
-            Goal.objects.create(user=request.user, name=goal_name)  
-            messages.success(request, 'Goal added successfully!')
-        else:
-            messages.error(request, 'Please enter a goal name.')
-    return redirect('dashboard')  
-
-
-def remove_goals(request):
-    if request.method == 'POST':
-        selected_goals = request.POST.getlist('selected_goals') 
-        if selected_goals:
-            Goal.objects.filter(id__in=selected_goals, user=request.user).delete()
-            messages.success(request, 'Selected goals removed successfully!')
-        else:
-            messages.error(request, 'No goals were selected for removal.')
     return redirect('dashboard')
 
 
@@ -203,13 +192,7 @@ def journaling(request):
                     text=journal_text
                 )
         return redirect('dashboard')
-
-    prompts = JournalingPrompt.objects.all()
-    journal_entries = JournalEntry.objects.filter(user=request.user)
-    return render(request, 'dashboard.html', {
-        'prompts': prompts,
-        'journal_entries': journal_entries
-    })
+    return render(request, 'dashboard.html')
 
 
 
@@ -221,7 +204,7 @@ def logout_view(request):
 
 @login_required
 def mood_graph(request):
-    moods = Mood.objects.filter(user=request.user).order_by('created_at')[:15]
+    moods = Mood.objects.filter(user=request.user).order_by('created_at') #fetches all moods of that user
 
     if not moods.exists():
         plt.figure(figsize=(10, 5))
@@ -236,45 +219,45 @@ def mood_graph(request):
             'happy': 4,
             'excited': 5
         }
-        colors = ['#ffcc00', '#ffa500', '#ff8c00', '#f08080', '#ff6347']  
 
-        dates = [mood.created_at for mood in moods]
-        mood_values = [mood_mapping.get(mood.emotion.lower(), 0) for mood in moods]
-        emotions = [mood.emotion.capitalize() for mood in moods]  
+        dates = [mood.created_at for mood in moods] #creates a list of dates
+        mood_values = [mood_mapping.get(mood.emotion.lower(), 0) for mood in moods] #list of numbers corresponding to each moode 
+        #print("mood",mood_values)
+        emotions = [mood.emotion.capitalize() for mood in moods]  #for annotating the graph
 
         plt.figure(figsize=(12, 5))
-        plt.plot(
-            dates, mood_values, 
-            marker='o', linestyle='-', 
-            color='#ffa500', linewidth=2, 
-            label="Mood Progression"
-        )
-        plt.fill_between(dates, mood_values, min(mood_values) - 1, color='#ffefd5', alpha=0.5)
+
+        # x-axis: date    ,   y-axis:mood_values
+        plt.plot(dates, mood_values, marker='o', linestyle='-', color='#ffa500', linewidth=2)
+
+        #area under the line
+        plt.fill_between(dates, mood_values, min(mood_values), color='#ffefd5', alpha=0.5) #alpha: semi-transparent fill
 
         for i, (date, value) in enumerate(zip(dates, mood_values)):
+            #print(i,date,value)
             plt.annotate(
                 emotions[i],  
                 xy=(date, value),
-                xytext=(0, 8), 
-                textcoords='offset points',
+                xytext=(0, 8), #offset the text by 8pts above the round
+                textcoords='offset points', #where to place the annotation
                 fontsize=10,
                 color='#d2691e',
                 ha='center',
                 bbox=dict(boxstyle="round,pad=0.3", edgecolor='#ffa07a', facecolor='#ffefd5', alpha=0.7)
             )
 
-        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %d')) 
-        plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=1))  
-        plt.gcf().autofmt_xdate()
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %d')) #abbreviated month name, date
+        plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=1))  #used to define the spacing: every day will have a tick
+        plt.gcf().autofmt_xdate() #when dates overlap -> rotate and make it readable
 
         plt.title('Mood Progression Over Time', fontsize=16, color='#ff8c00')
         plt.xlabel('Date', fontsize=12, color='#d2691e')
         plt.ylabel('Mood Scale', fontsize=12, color='#d2691e')
         plt.grid(True, linestyle='--', alpha=0.5)  
-        plt.tight_layout()
+        plt.tight_layout() #fit evrything inside the figure
 
     buffer = BytesIO()
-    plt.savefig(buffer, format='png', bbox_inches='tight')
+    plt.savefig(buffer, format='png', bbox_inches='tight') #save it to the buffer instead
     buffer.seek(0)
     plt.close()
 

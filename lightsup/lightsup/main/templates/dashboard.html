@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     
 </head>
 <body>
+
+
     <nav class="navbar navbar-dark fixed-top">
-        <div class="container-fluid"> <!--Creates a full-width container for the content.-->
+        <div class="container-fluid"> <!--creates a full-width container for the content.-->
             <a class="navbar-brand" href="#">LightsUp</a>
             
-             <!-- Toggle Button-->
-             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+             <!-- Toggle Button at the top right portion -->                                                   <!--collapsed at first-->
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span> <!--hamburger design inside the button-->
             </button>
 
             <!-- Navbar Links -->
@@ -23,7 +25,7 @@
 
                  <!-- navbar-nav – Defines the navigation list inside the navbar.
                      ms-auto – Automatically aligns the navbar items to the right (using margin-left auto). -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto"> <!-- navbar list of nav links-->
                     <li class="nav-item">
                         <a class="nav-link" href="#affirmation">Daily Affirmation</a>
                     </li>
@@ -39,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#goals">Goals</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url 'moodlogin' %}" class="nav-link">Add Another Mood</a> 
+                    </li>
                     <li>
                         <a href="{% url 'home' %}" class="nav-link">&emsp;Logout</a>
                     </li>
@@ -52,23 +57,24 @@
         <h1>LightsUp</h1>
         <p class="lead">"Shine brighter, one step at a time"</p>
         <div>
-            <a href="#dashboard" class="btn btn-custom">Go to Dashboard</a>
+            <a href="#dashboard" class="btn btn-custom">Go to your Dashboard</a>
         </div>
     </div>
 
 <div id="dashboard">
     <div class="dashboard-grid">
 
-        <!-- First Column -->
+        <!-- (1,1)-->
         <div class="grid-item insights" id="insights">
-            <h2>Mood Insights</h2>
-            <!-- Dynamically display the mood graph -->
-            <img src="{% url 'mood-graph' %}" alt="Mood Graph" class="mood-graph-img">
+            <h2>Your Mood Insights</h2>
+            <!-- display the mood graph -->
+            <img src="{% url 'mood_graph' %}" alt="Mood Graph" class="mood-graph-img">
         </div>
         
+        <!--(2,1)-->
         <div class="grid-item journaling" id="journaling">
             <h2>Journaling</h2>
-            <p>Document your thoughts to track your progress.</p>
+            <p>Document your thoughts to track your progress here.</p>
             <form action="{% url 'journaling' %}" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -77,10 +83,14 @@
                         <textarea class="form-control" name="journal_{{ prompt.id }}" rows="3"></textarea>
                     {% endfor %}
                 </div>
+                <div class="mt-auto">
                 <button type="submit" class="btn btn-custom">Write and Let Go </button>
+                <!--<button type="reset" class="btn btn-custom">Reset</button>-->
+            </div>
             </form>
         </div>
 
+        <!--(1,2)-->
         <div class="grid-item affirmation" id="affirmation">
             <h2>Daily Affirmation</h2>
             {% if affirmations %}
@@ -94,6 +104,7 @@
         </div>
 
 
+        <!--(2,2)-->
         <div class="grid-item recommendations" id="recommendations">
             <h2>Recommendations</h2>
             {% if recommendations %}
@@ -102,13 +113,6 @@
                         <div class="recommendation-card">
                             <div class="recommendation-content">
                                 <p class="recommendation-text"><strong>{{ recommendation.text }}</strong></p>
-                                {% if recommendation.link %}
-                                    <p>
-                                        <a href="{{ recommendation.link }}" target="_blank" class="recommendation-link">
-                                            <i class="fas fa-external-link-alt"></i> Visit Recommendation
-                                        </a>
-                                    </p>
-                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -118,8 +122,10 @@
             {% endif %}
         </div>
         
+        <!--(3,2)-->
         <div class="grid-item goals" id="goals">
             <h2>Goals</h2>
+
             <form action="{% url 'remove_goals' %}" method="post">
                 {% csrf_token %}
                 <ul class="list-group">
@@ -130,14 +136,14 @@
                                 {{ goal.name }}
                             </label>
                         </li>
-                    {% empty %}
+                    {% empty %} <!--if there are not goals listed-->
                         <li class="list-group-item">No goals set yet.</li>
                     {% endfor %}
                 </ul>
-        
                 <button type="submit" class="btn btn-danger btn-sm mt-3">Remove Selected Goals</button>
             </form>
         
+
             <form action="{% url 'add_goal' %}" method="post" class="mt-3">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -147,16 +153,15 @@
             </form>
         </div>
         
-        
-
+        <!--(3,1)-->
         <div class="grid-item daily-challenges">
-            <h2>Daily Challenges</h2>
+            <h2>Daily Challenges for Today</h2>
             <p>Complete small, actionable tasks to boost your mental well-being:</p>
             <ul class="list-group">
                 {% for challenge in challenges %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ challenge.task }}
-                        <input type="checkbox" class="form-check-input" aria-label="Mark as done">
+                        <input type="checkbox" class="form-check-input">
                     </li>
                 {% empty %}
                     <li class="list-group-item">No challenges for today.</li>
@@ -168,11 +173,21 @@
                 <div class="mb-3">
                     <input type="text" class="form-control" id="custom-challenge" name="custom-challenge" placeholder="Add a custom challenge" required>
                 </div>
-                <button type="submit" class="btn btn-custom">Add Challenge</button>
+                <button type="submit" class="btn btn-custom">Add a new Challenge</button>
             </form>
         </div>
     </div>
 </div>
+
+
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<!--
+<script>
+    function showMessage()
+        {
+            alert("Your goal was added successfully")
+        }-->
+</script>
 </body>
 </html>

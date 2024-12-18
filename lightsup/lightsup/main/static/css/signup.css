@@ -1,112 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Tenor+Sans&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Tenor+Sans&display=swap');
 
-body {
-    background: url("../images/loginsignup.jpg") no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Inria Sans', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    cursor: url('../images/cusrsor.png') 4 4, default;
-}
+            body {
+                background: url("../images/loginsignup.jpg") no-repeat center center fixed;
+                background-size: cover;
+                font-family: 'Inria Sans', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 20px;
+                cursor: url('../images/cusrsor.png') 4 4, default;
+            }
 
-.signup-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 30px;
-    max-width: 450px; /* Slightly wider for better alignment */
-    width: 100%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+            .signup-container {
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                padding: 30px;
+                max-width: 450px; 
+                width: 100%;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
 
-h2 {
-    font-family: 'Dancing Script', cursive;
-    color: #ffc107;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
+            h2 {
+                font-family: 'Dancing Script', cursive;
+                color: #ffc107;
+                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
 
-.text-muted {
-    font-size: 0.9rem;
-    text-align: center;
-    margin-bottom: 20px;
-}
+            .text-muted {
+                font-size: 0.9rem;
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
 
-.form-label {
-    font-family: 'Tenor Sans', serif;
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block; /* Ensures label is aligned above input */
-}
+            .form-label {
+                font-family: 'Tenor Sans', serif;
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+            }
 
-.form-control {
-    font-size: 1rem;
-    height: 2.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 0.375rem 0.75rem;
-    width: 100%; /* Ensures all inputs are aligned and full-width */
-}
+            .form-control {
+                font-size: 1rem;
+                height: 2.5rem;
+                border: 1px solid #ced4da;
+                border-radius: 5px;
+                padding: 0.375rem 0.75rem;
+                width: 100%; 
+            }
 
-.form-control:focus {
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+            .form-control:focus {
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
 
-.form-text {
-    font-size: 0.85rem;
-    margin-top: 5px;
-    color: #6c757d;
-    display: block; /* Aligns text below input field */
-}
+            .form-text {
+                font-size: 0.85rem;
+                margin-top: 5px;
+                color: #6c757d;
+                display: block; 
+            }
 
-ul.form-text {
-    list-style-type: disc;
-    margin-left: 0; /* Align the list to the left edge */
-    padding-left: 1.25rem; /* Add slight padding for indentation of bullets */
-    text-align: left; /* Ensure text is aligned to the left */
-}
+            .btn-success {
+                background-color: #28a745;
+                border-color: #28a745;
+                font-family: 'Inria Sans', sans-serif;
+                font-weight: bold;
+                width: 100%;
+                padding: 0.5rem;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
 
-ul.form-text li {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin-bottom: 5px;
-    text-align: left; /* Explicitly align each list item to the left */
-}
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
 
+            .text-center a {
+                color: #ffc107;
+                text-decoration: none;
+                font-weight: bold;
+                transition: color 0.3s;
+            }
 
-.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-    font-family: 'Inria Sans', sans-serif;
-    font-weight: bold;
-    width: 100%;
-    padding: 0.5rem;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-}
-
-.text-center a {
-    color: #ffc107;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.text-center a:hover {
-    text-decoration: underline;
-    color: #ffdd57;
-}
+            .text-center a:hover {
+                text-decoration: underline;
+                color: #ffdd57;
+            }

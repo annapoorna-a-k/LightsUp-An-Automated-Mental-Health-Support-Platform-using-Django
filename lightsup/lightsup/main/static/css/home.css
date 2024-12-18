@@ -7,8 +7,6 @@
             
         }
 
-        
-
         .welcome-section {
             height: 100vh;
             display: flex;
@@ -84,12 +82,13 @@
             padding: 20px 0;
         }
 
+        /* Ensures that only the currently active carousel item is visible and others are hidden. */
         .carousel-inner {
             overflow: hidden;
         }
 
         .carousel-item {
-            display: none;
+            display: none; /*hides all the carousel item at first*/
             transition: transform .6s ease-in-out;
         }
 
@@ -105,7 +104,7 @@
 
         .card {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto; /*centers horizontally*/
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 30px;
@@ -114,7 +113,7 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px); /*lifts the card upward*/
         }
 
         .card-title {

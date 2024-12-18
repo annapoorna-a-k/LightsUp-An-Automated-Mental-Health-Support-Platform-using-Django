@@ -5,34 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Logging - LightsUp</title>
+
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/moodlogin.css' %}">
 </head>
+
 <!--flex-coloumn: Stacks elements vertically inside a Flexbox container.-->
 <body class="d-flex flex-column align-items-center">
 
-    <!-- Greeting Section -->
-         <!--col-md-8	Sets the width to 8/12 of the screen on medium or larger screens-->
+         <!--col-md-8 -> Sets the width to 8/12 of the screen on medium or larger screens-->
          <div class="greeting-container col-md-8 mt-4"> 
-            <h1>Hello {{ request.user.username }}</h1>
+            <h1>Hello {{ request.user.username }}! </h1> <!-- from the request passed on to the view -->
             <p>Let's brighten your day!</p>
             <p id="current-date"></p>
         </div>
-    <!-- Mood Logging Form -->
+
 
      <!--card: creates a styled container for the form with shadow and padding.-->
-    <div class="card col-md-8 p-4">
+    <div class="card col-md-8 p-4"> <!-- p-4: for padding inside the card-->
         <div class="card-body">
             <h5 class="card-title text-center" style="color: #463360;">Log Your Mood</h5>
             <form action="{% url 'moodlogin' %}" method="post">
 
-                {% csrf_token %}  <!-- CSRF Token added here -->
+                {% csrf_token %}  
                 
-                <!-- Select Mood -->
+                <!-- Selecting Mood -->
                 <div class="mb-3">
                     <label for="moodType" class="form-label">How do you feel today?</label>
                     <select class="form-select" id="moodType" name="emotion" required>
-                        <option value="">Select...</option>
+                        <option value="">Select Your Mood</option>
                         <option value="happy">Happy</option>
                         <option value="sad">Sad</option>
                         <option value="neutral">Neutral</option>
@@ -42,22 +43,22 @@
                     </select>
                 </div>
 
-                <!-- Question: What made you feel this emotion? -->
+                <!-- Question 1: What made you feel this emotion? -->
                 <div class="mb-3">
                     <label for="emotionReason" class="form-label">What made you feel this emotion?</label>
-                    <textarea class="form-control" id="emotionReason" rows="3" placeholder="Describe your reason..."></textarea>
+                    <textarea class="form-control" id="emotionReason" name="emotionReason" rows="3" placeholder="Describe your reason here..."></textarea>
                 </div>
 
                 <!-- Additional Notes -->
                 <div class="mb-3">
                     <label for="notes" class="form-label">Additional Notes:</label>
-                    <textarea class="form-control" id="notes" rows="3" placeholder="Any other details you'd like to share?"></textarea>
+                    <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any other details you'd like to share?"></textarea>
                 </div>
 
-                <!-- Submit Button -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary w-100">Log Mood</button>
                 </div>
+
             </form>
         </div>
     </div>
@@ -65,10 +66,11 @@
     <!-- JavaScript to Display Current Date -->
     <script>
         const dateElement = document.getElementById('current-date');
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const today = new Date(); //The Date object in JavaScript is used to work with dates and times.
-        dateElement.textContent = `Today is ${today.toLocaleDateString(undefined, options)}`;
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; //how the date must be displayed on the screen
+        const today = new Date(); //Date object in JavaScript
+        dateElement.textContent = `Today is ${today.toLocaleDateString(undefined, options)}`; //undefined: the default user's locale settings will be used
     </script>
+
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

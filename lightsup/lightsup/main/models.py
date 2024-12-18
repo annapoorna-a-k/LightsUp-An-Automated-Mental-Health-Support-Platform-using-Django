@@ -11,12 +11,12 @@ from django.contrib.auth.models import User
 #         return f"{self.username}'s Profile"
 
 
-# Goal Model
+#Goal Model
 class Goal(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    custom_goal = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #user -> goal using this key, cascade and delete if the user is deleted
+    name = models.CharField(max_length=100) #goal name
+    custom_goal = models.TextField(blank=True, null=True) #for custom goals
+    created_at = models.DateTimeField(auto_now_add=True) #to record the time
 
     def __str__(self):
         return f"{self.name} Goal"
@@ -25,7 +25,7 @@ class Goal(models.Model):
 # Mood Model
 class Mood(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    emotion = models.CharField(max_length=50)  # Happy, Sad, etc.
+    emotion = models.CharField(max_length=50) 
     reason = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,7 +36,7 @@ class Mood(models.Model):
 
 # Affirmation Model
 class Affirmation(models.Model):
-    mood = models.ForeignKey(Mood, on_delete=models.CASCADE)  # Mood is related to this table using foreign key
+    mood = models.ForeignKey(Mood, on_delete=models.CASCADE) 
     text = models.TextField()
 
     def __str__(self):

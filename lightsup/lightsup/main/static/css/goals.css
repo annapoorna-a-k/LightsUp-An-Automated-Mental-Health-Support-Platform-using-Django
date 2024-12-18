@@ -4,7 +4,6 @@
             background: url("../images/moodlogin.jpg") no-repeat center center fixed;
             background-size: cover;
             font-family: 'Inria Sans', sans-serif;
-            color: #2e273d;
             margin: 0;
             padding: 0;
             cursor: url('../images/cusrsor.png') 4 4, default;
@@ -12,15 +11,15 @@
 
         .container {
             background-color: rgba(255, 255, 255, 0.8);
-            padding: 25px; /* Reduced padding */
+            padding: 25px; 
             border-radius: 10px; 
-            margin: 30px auto; /* Reduced margin */
-            max-width: 500px; /* Reduced max-width for more compact layout */
+            margin: 100px auto; 
+            max-width: 500px; 
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem; /* Slightly reduced font size */
+            font-size: 2.5rem; 
             font-weight: 700;
             margin-bottom: 20px;
         }
@@ -31,31 +30,23 @@
             margin-bottom: 30px;
         }
 
-        .goal-option {
+        .goal-option 
+        {
             margin: 10px 0; 
         }
 
-        label {
+        label
+        {
             font-family: 'Inria Sans', sans-serif;
             font-size: 1.1rem;
             font-weight: 400;
             margin-left: 10px;
         }
 
-        input[type="checkbox"] {
+        input[type="checkbox"] 
+        {
             transform: scale(1.1); 
             cursor: pointer;
-        }
-
-        input[type="text"] {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            padding: 8px;
-            font-size: 1rem;
-            font-family: 'Inria Sans', sans-serif;
-            border: 1px solid #ccc;
-            border-radius: 5px;
         }
 
         button {

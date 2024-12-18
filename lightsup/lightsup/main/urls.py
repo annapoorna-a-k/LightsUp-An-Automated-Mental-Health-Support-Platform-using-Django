@@ -12,6 +12,6 @@ urlpatterns = [
     path('journaling', views.journaling, name='journaling'),
     path('add_goal', views.add_goal, name='add_goal'), 
     path('remove_goals', views.remove_goals, name='remove_goals'),
-    path('mood-graph/', views.mood_graph, name='mood-graph'),
+    path('mood_graph/', views.mood_graph, name='mood_graph'),
 
 ]
