@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inria+Sans:wght@300;400;700&family=Tenor+Sans&display=swap');
+
+        body {
+            background: url("../images/home.jpg") no-repeat center center fixed;
+            background-size: cover;
+            cursor: url('../images/cusrsor.png') 4 4, default;
+            
+        }
+
+        
+
+        .welcome-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            color: black;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 2px;
+        }
+
+        .lead {
+            font-size: 1.5rem;
+            color: darkred;
+            font-family: 'Tenor Sans', sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-custom-primary {
+            background-color: #ffc107;
+            color: black;
+            border: 1px solid #d6a104;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom-primary:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-custom-outline {
+            color: black;
+            border: 1px solid #d6a104;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #eabe3b;
+        }
+
+        .features-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .feature-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffc107;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #featureCarousel {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .carousel-inner {
+            overflow: hidden;
+        }
+
+        .carousel-item {
+            display: none;
+            transition: transform .6s ease-in-out;
+        }
+
+        .carousel-item.active {
+            display: block;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .card {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-text {
+            font-family: 'Inria Sans', sans-serif;
+            color: #333;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 193, 7, 0.8);
+            border-radius: 50%;
+            top: 50%; /*places the top edge of the button at 50% of the parent container’s height*/
+            transform: translateY(-50%);
+            opacity: 0.7;
+            }
+
+        .container {
+            position: relative;
+        }

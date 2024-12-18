@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Tenor+Sans&display=swap');
+
+        body {
+            background: url("../images/loginsignup.jpg") no-repeat center center fixed;
+            /* image covers the full page */
+            background-size: cover; 
+            font-family: 'Inria Sans', sans-serif;
+            cursor: url('../images/cusrsor.png') 4 4, default;
+        }
+
+        .text-center a {
+            color: #ffc107;
+        }
+        
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #ffc107;
+        }
+
+        .form-label {
+            font-family: 'Tenor Sans', serif;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #e0a800;
+        }
+
+       
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        .insights {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-color: #fef9e7;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mood-graph-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border: 2px solid #f8c471; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 165, 0, 0.3); 
+        }
+
+
+        

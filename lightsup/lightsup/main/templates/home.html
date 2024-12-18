@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightsUp - Welcome</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+
+</head>
+<body>
+
+    <div class="welcome-section">
+        <div class="container">
+            <h1>LightsUp</h1>
+            <p class="lead">"Shine brighter, one step at a time"</p>
+            <div class="mt-4">
+                <a href="{% url 'login' %}" class="btn btn-custom-primary btn-lg me-3">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-custom-outline btn-lg">Sign Up</a>
+            </div>
+            <div class="mt-5">
+                <a href="#features" class="btn btn-custom-outline btn-lg">Explore Features</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="features" class="features-section">
+        <div class="container">
+            <h2 class="feature-title">Key Features</h2>
+            <div id="featureCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000"> <!-- slides will transition from one to the next automatically, without user interaction-->
+
+                <!-- It ensures that only the content inside .carousel-inner that fits within its boundaries is visible. Any overflow content, like slides that are not active, will be clipped and hidden from view. -->
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active"> <!--initially --> 
+                        <div class="card">
+                            <h5 class="card-title">🌻 Mood Tracking</h5>
+                            <p class="card-text">Log your emotions daily and visualize your emotional patterns over time.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="card">
+                            <h5 class="card-title">🌻 Goal-Oriented Support</h5>
+                            <p class="card-text">Set wellness goals like stress management or mindfulness and receive personalized guidance.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="card">
+                            <h5 class="card-title">🌻 Daily Affirmations</h5>
+                            <p class="card-text">Get motivational quotes tailored to your emotions to uplift your day.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="card">
+                            <h5 class="card-title">🌻 Mood-Based Recommendations</h5>
+                            <p class="card-text">Access curated activities like yoga, music, or videos to match your current mood.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="card">
+                            <h5 class="card-title">🌻 Self-Care Suggestions</h5>
+                            <p class="card-text">Explore journaling prompts and wellness tips that suit your emotional state and goals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#featureCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featureCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
