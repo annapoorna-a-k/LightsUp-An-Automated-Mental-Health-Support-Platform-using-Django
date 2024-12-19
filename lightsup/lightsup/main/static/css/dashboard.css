@@ -2,7 +2,7 @@
 
         body {
             font-family: 'Inria Sans', sans-serif;
-            overflow-x: hidden;
+            overflow-x: hidden; /* horizontal scrollbar is hidden*/
             background: url("../images/dashboard.jpg") no-repeat center center fixed;
             background-size: cover;
             cursor: url('../images/cusrsor.png') 4 4, default;
@@ -32,7 +32,7 @@
             margin-top: 10px; 
         }
 
-        .navbar-nav {/*navbar links*/
+        .navbar-nav {      /*navbar links*/
             text-align:left;  
             font-family: 'Inria Sans', sans-serif;
             width: 100%;
@@ -40,16 +40,16 @@
 
         .nav-item {
             padding: 12px 15px;  
-            transition: background-color 0.3s ease;  /* Smooth background color transition */
+            transition: background-color 0.3s ease;  
         }
 
         .nav-item:hover {
-            background-color: rgba(255, 183, 3, 0.2);  /* Highlight on hover */
+            background-color: rgba(255, 183, 3, 0.2);  
         }
 
         .nav-link {
         color: white !important;  /* White text color for the links */
-        font-size: 1.1rem;  /* Slightly larger text for better readability */
+        font-size: 1.1rem; 
         }
 
         .nav-link:hover {
@@ -88,7 +88,7 @@
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 3fr 1.5fr; /* Wider first column */
+            grid-template-columns: 3fr 1.5fr;
             grid-template-rows: repeat(3, 1fr); /* Three rows for layout flexibility */
             grid-gap: 20px;
             padding: 20px;
@@ -133,7 +133,7 @@
             padding: 12px 15px;
             margin-bottom: 10px; 
             border-radius: 8px;
-            background: linear-gradient(to right, #FFB703, #FFD166); 
+            background: #FFB703; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
             font-size: 1.1rem;
             color: #333; 
@@ -167,7 +167,6 @@
         .affirmation {
             grid-column: 2;
             grid-row: 1; 
-            
         }
 
         .recommendations {
@@ -223,15 +222,6 @@
             margin-bottom: 8px;
         }
 
-        .recommendations a {
-            color: #FFB703;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .recommendations a:hover {
-            color: #E8A400;
-        }
 
         .list-group-item{
             font-size: 1rem;
@@ -257,7 +247,7 @@
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
-            animation: fadeInUp 2s forwards; 
+            animation: fadeInUp 2s forwards;  /*forwards-> retains the initial condition*/
         }
 
         @keyframes fadeInUp {
@@ -277,7 +267,25 @@
             background-color: #f99100a0; 
         }
 
+        .affirmation-quote {
+            margin-top: 15px;
+            padding: 15px 20px;
+            background-color: #fef9e7; 
+            border-left: 4px solid #FFB703; 
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            color: #555;
+            text-align: center;
+            line-height: 1.6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        .affirmation-quote:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
         .recommendation-cards {
             display: grid;
@@ -307,26 +315,6 @@
             font-size: 1rem;
             color: #333;
             margin-bottom: 10px;
-        }
-
-        .affirmation-quote {
-            margin-top: 15px;
-            padding: 15px 20px;
-            background-color: #fef9e7; 
-            border-left: 4px solid #FFB703; 
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: 'Georgia', serif;
-            color: #555;
-            text-align: center;
-            line-height: 1.6;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .affirmation-quote:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .mood-graph-img {
